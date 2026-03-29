@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tranx — Consultoria em IA & Auditoria de Processos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080c10;
+    --surface: #0d1117;
+    --border: rgba(0,230,200,0.12);
+    --accent: #00e6c8;
+    --accent2: #0066ff;
+    --text: #e8edf2;
+    --muted: #5a6878;
+    --card-bg: rgba(255,255,255,0.03);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* GRID BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,230,200,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,230,200,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* GLOW ORBS */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -200px;
+    right: -200px;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(0,102,255,0.07) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .glow-bottom {
+    position: fixed;
+    bottom: -300px;
+    left: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0,230,200,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* TYPOGRAPHY */
+  h1, h2, h3, h4, .brand { font-family: 'Syne', sans-serif; }
+
+  /* LAYOUT */
+  .container { max-width: 1160px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    background: rgba(8,12,16,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .logo-mark {
+    width: 36px;
+    height: 36px;
+    position: relative;
+  }
+
+  .logo-mark svg { width: 36px; height: 36px; }
+
+  .brand {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: var(--text);
+  }
+
+  .brand span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    padding: 8px 22px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .nav-cta:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 68px;
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    padding: 80px 0;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-size: clamp(42px, 5vw, 68px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  h1 .line-accent { color: var(--accent); }
+  h1 .line-dim { color: var(--muted); font-weight: 400; }
+
+  .hero-desc {
+    font-size: 17px;
+    color: rgba(232,237,242,0.65);
+    line-height: 1.7;
+    max-width: 460px;
+    margin-bottom: 40px;
+  }
+
+  .hero-actions { display: flex; gap: 16px; align-items: center; }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    padding: 14px 32px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover { background: #00ffdd; transform: translateY(-1px); }
+
+  .btn-ghost {
+    color: var(--muted);
+    font-size: 14px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+
+  .btn-ghost:hover { color: var(--text); }
+  .btn-ghost .arrow { font-size: 18px; }
+
+  /* HERO VISUAL */
+  .hero-visual {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .hex-grid {
+    width: 460px;
+    height: 460px;
+    position: relative;
+  }
+
+  .hex-grid svg { width: 100%; height: 100%; }
+
+  /* STATS BAR */
+  .stats-bar {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 32px 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 0 24px;
+    border-right: 1px solid var(--border);
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 38px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 100px 0; }
+
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    padding: 6px 14px;
+    border: 1px solid rgba(0,230,200,0.2);
+  }
+
+  .section-title {
+    font-size: clamp(30px, 4vw, 46px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    font-size: 17px;
+    color: rgba(232,237,242,0.55);
+    max-width: 540px;
+    line-height: 1.7;
+    margin-bottom: 60px;
+  }
+
+  /* ─── SERVICES ─── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .service-card {
+    background: var(--bg);
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { background: rgba(0,230,200,0.03); }
+
+  .service-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  .service-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 24px;
+    color: var(--accent);
+  }
+
+  .service-title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .service-desc {
+    font-size: 15px;
+    color: rgba(232,237,242,0.55);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    padding: 4px 12px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  /* ─── ISO CERTS ─── */
+  .iso-section { background: var(--surface); }
+
+  .iso-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    margin-top: 0;
+  }
+
+  .iso-card {
+    border: 1px solid var(--border);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .iso-card:hover { border-color: rgba(0,230,200,0.35); }
+
+  .iso-badge {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 6px 16px;
+    margin-bottom: 24px;
+  }
+
+  .iso-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .iso-desc {
+    font-size: 14px;
+    color: rgba(232,237,242,0.55);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .iso-steps {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .iso-steps li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: rgba(232,237,242,0.7);
+  }
+
+  .iso-steps li::before {
+    content: '→';
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ─── METHODOLOGY ─── */
+  .methodology-track {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+    margin-top: 60px;
+  }
+
+  .methodology-track::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 12.5%;
+    right: 12.5%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent), rgba(0,102,255,0.4));
+  }
+
+  .method-step { text-align: center; padding: 0 16px; }
+
+  .step-dot {
+    width: 56px;
+    height: 56px;
+    border: 1px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    background: var(--bg);
+    position: relative;
+    z-index: 1;
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--accent);
+  }
+
+  .step-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .step-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ─── CONTACT ─── */
+  .contact-section { background: var(--surface); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact-info h2 { margin-bottom: 16px; }
+
+  .contact-info p {
+    color: rgba(232,237,242,0.55);
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+
+  .contact-detail {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    color: rgba(232,237,242,0.7);
+    font-size: 15px;
+  }
+
+  .contact-detail .icon {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--accent);
+  }
+
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+
+  .form-group label {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 12px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    -webkit-appearance: none;
+  }
+
+  .form-group select option { background: #0d1117; }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: rgba(0,230,200,0.4);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 120px; }
+
+  .btn-submit {
+    background: var(--accent);
+    color: var(--bg);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    padding: 16px 40px;
+    border: none;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: all 0.2s;
+    margin-top: 8px;
+  }
+
+  .btn-submit:hover { background: #00ffdd; transform: translateY(-1px); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 0;
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-copy {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes pulse-ring {
+    0%   { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+
+  .hero-eyebrow { animation: fadeUp 0.6s ease both 0.1s; }
+  h1 { animation: fadeUp 0.6s ease both 0.2s; }
+  .hero-desc { animation: fadeUp 0.6s ease both 0.3s; }
+  .hero-actions { animation: fadeUp 0.6s ease both 0.4s; }
+  .hero-visual { animation: fadeIn 1s ease both 0.5s; }
+
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  .ring-spin { animation: spin-slow 30s linear infinite; transform-origin: center; }
+  .ring-spin-rev { animation: spin-slow 20s linear infinite reverse; transform-origin: center; }
+
+  @keyframes dash {
+    to { stroke-dashoffset: 0; }
+  }
+
+  .path-draw {
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: dash 2s ease forwards 0.8s;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+    .hero-visual { justify-content: center; }
+    .hex-grid { width: 320px; height: 320px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .iso-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+    .methodology-track { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+    .methodology-track::before { display: none; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .stat-item:nth-child(2) { border-right: none; }
+    .form-row { grid-template-columns: 1fr; }
+    nav .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="glow-bottom"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="18,2 34,32 2,32" stroke="#00e6c8" stroke-width="1.5" fill="none"/>
+        <polygon points="18,10 28,28 8,28" fill="#00e6c8" opacity="0.15"/>
+        <line x1="18" y1="2" x2="18" y2="32" stroke="#00e6c8" stroke-width="1" opacity="0.5"/>
+        <circle cx="18" cy="18" r="3" fill="#00e6c8"/>
+      </svg>
+    </div>
+    <span class="brand">TRAN<span>X</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#certificacoes">Certificações</a></li>
+    <li><a href="#metodologia">Metodologia</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <a href="#contato" class="nav-cta">Fale Conosco</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-eyebrow">Tecnologia · Processos · Conformidade</div>
+        <h1>
+          Inteligência<br>
+          <span class="line-accent">artificial</span><br>
+          <span class="line-dim">para processos</span><br>
+          que importam.
+        </h1>
+        <p class="hero-desc">
+          Transformamos operações com consultoria em IA, auditoria de processos e preparação para certificações ISO — entregando eficiência real e conformidade sustentável.
+        </p>
+        <div class="hero-actions">
+          <a href="#contato" class="btn-primary">Solicitar diagnóstico</a>
+          <a href="#servicos" class="btn-ghost">Ver serviços <span class="arrow">→</span></a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hex-grid">
+          <svg viewBox="0 0 460 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer ring -->
+            <circle cx="230" cy="230" r="200" stroke="rgba(0,230,200,0.08)" stroke-width="1"/>
+            <circle cx="230" cy="230" r="200" stroke="rgba(0,230,200,0.15)" stroke-width="1" stroke-dasharray="12 8" class="ring-spin"/>
+            <!-- Mid ring -->
+            <circle cx="230" cy="230" r="140" stroke="rgba(0,102,255,0.12)" stroke-width="1"/>
+            <circle cx="230" cy="230" r="140" stroke="rgba(0,102,255,0.2)" stroke-width="1" stroke-dasharray="6 10" class="ring-spin-rev"/>
+            <!-- Inner ring -->
+            <circle cx="230" cy="230" r="80" stroke="rgba(0,230,200,0.2)" stroke-width="1"/>
+            <!-- Connection lines -->
+            <line x1="230" y1="30" x2="230" y2="430" stroke="rgba(0,230,200,0.06)" stroke-width="1"/>
+            <line x1="30" y1="230" x2="430" y2="230" stroke="rgba(0,230,200,0.06)" stroke-width="1"/>
+            <line x1="87" y1="87" x2="373" y2="373" stroke="rgba(0,230,200,0.06)" stroke-width="1"/>
+            <line x1="373" y1="87" x2="87" y2="373" stroke="rgba(0,230,200,0.06)" stroke-width="1"/>
+            <!-- Outer nodes -->
+            <circle cx="230" cy="30" r="4" fill="#00e6c8" opacity="0.6"/>
+            <circle cx="430" cy="230" r="4" fill="#00e6c8" opacity="0.6"/>
+            <circle cx="230" cy="430" r="4" fill="#00e6c8" opacity="0.6"/>
+            <circle cx="30" cy="230" r="4" fill="#00e6c8" opacity="0.6"/>
+            <circle cx="87" cy="87" r="3" fill="#0066ff" opacity="0.6"/>
+            <circle cx="373" cy="87" r="3" fill="#0066ff" opacity="0.6"/>
+            <circle cx="373" cy="373" r="3" fill="#0066ff" opacity="0.6"/>
+            <circle cx="87" cy="373" r="3" fill="#0066ff" opacity="0.6"/>
+            <!-- Mid nodes -->
+            <circle cx="230" cy="90" r="5" fill="#00e6c8" opacity="0.4"/>
+            <circle cx="370" cy="230" r="5" fill="#00e6c8" opacity="0.4"/>
+            <circle cx="230" cy="370" r="5" fill="#00e6c8" opacity="0.4"/>
+            <circle cx="90" cy="230" r="5" fill="#00e6c8" opacity="0.4"/>
+            <!-- Center shape -->
+            <polygon points="230,160 290,200 290,260 230,300 170,260 170,200" stroke="#00e6c8" stroke-width="1.5" fill="rgba(0,230,200,0.05)"/>
+            <polygon points="230,175 275,200 275,255 230,280 185,255 185,200" stroke="rgba(0,102,255,0.4)" stroke-width="1" fill="none"/>
+            <!-- Center dot -->
+            <circle cx="230" cy="230" r="8" fill="#00e6c8"/>
+            <circle cx="230" cy="230" r="16" stroke="#00e6c8" stroke-width="1" opacity="0.3"/>
+            <circle cx="230" cy="230" r="26" stroke="#00e6c8" stroke-width="0.5" opacity="0.15"/>
+            <!-- Path draw -->
+            <path d="M230 230 L370 230 L290 90 L230 160" stroke="#00e6c8" stroke-width="1.5" fill="none" class="path-draw"/>
+            <!-- Corner labels -->
+            <text x="218" y="24" fill="#00e6c8" font-size="9" font-family="monospace" opacity="0.7">IA</text>
+            <text x="438" y="234" fill="#00e6c8" font-size="9" font-family="monospace" opacity="0.7">ISO</text>
+            <text x="206" y="446" fill="#00e6c8" font-size="9" font-family="monospace" opacity="0.7">DATA</text>
+            <text x="10" y="234" fill="#00e6c8" font-size="9" font-family="monospace" opacity="0.7">OPS</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-num">+40%</div>
+        <div class="stat-label">Eficiência média em processos</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">ISO</div>
+        <div class="stat-label">27001 · 45001 certificados</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">360°</div>
+        <div class="stat-label">Visão de processos e riscos</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">AI</div>
+        <div class="stat-label">Consultoria especializada</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="servicos">
+  <div class="container">
+    <div class="section-tag">▸ Serviços</div>
+    <h2 class="section-title">O que a Tranx entrega</h2>
+    <p class="section-sub">Soluções integradas que unem tecnologia de ponta com rigor metodológico para transformar como sua empresa opera.</p>
+
+    <div class="services-grid">
+
+      <!-- Card 1 -->
+      <div class="service-card">
+        <div class="service-num">01 / Consultoria</div>
+        <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="24" cy="24" r="20"/>
+          <path d="M16 24 L22 30 L32 18"/>
+          <circle cx="24" cy="10" r="2" fill="currentColor"/>
+          <circle cx="38" cy="24" r="2" fill="currentColor"/>
+          <circle cx="10" cy="24" r="2" fill="currentColor"/>
+        </svg>
+        <h3 class="service-title">Consultoria em Inteligência Artificial</h3>
+        <p class="service-desc">Identificamos oportunidades reais de automação e IA no seu negócio — sem promessas vazias. Implementamos soluções que geram ROI mensurável, do diagnóstico à produção.</p>
+        <div class="service-tags">
+          <span class="tag">Diagnóstico IA</span>
+          <span class="tag">Automação</span>
+          <span class="tag">LLMs corporativos</span>
+          <span class="tag">MLOps</span>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="service-card">
+        <div class="service-num">02 / Auditoria</div>
+        <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="8" y="8" width="32" height="32" rx="2"/>
+          <path d="M16 24 H32"/>
+          <path d="M16 18 H26"/>
+          <path d="M16 30 H22"/>
+          <path d="M30 28 L34 32 L38 26" stroke-width="2"/>
+        </svg>
+        <h3 class="service-title">Auditoria de Processos</h3>
+        <p class="service-desc">Mapeamos, analisamos e redesenhamos seus processos operacionais com metodologia estruturada. Identificamos gargalos, riscos e oportunidades de melhoria com dados concretos.</p>
+        <div class="service-tags">
+          <span class="tag">BPM</span>
+          <span class="tag">Mapeamento AS-IS / TO-BE</span>
+          <span class="tag">Análise de riscos</span>
+          <span class="tag">Lean</span>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="service-card">
+        <div class="service-num">03 / Segurança</div>
+        <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M24 4 L40 12 V26 C40 35 32 42 24 44 C16 42 8 35 8 26 V12 L24 4Z"/>
+          <path d="M18 24 L22 28 L30 20"/>
+        </svg>
+        <h3 class="service-title">Segurança da Informação</h3>
+        <p class="service-desc">Avaliamos a maturidade de segurança da sua organização e conduzimos o processo de adequação à ISO 27001 — da análise de gaps até a certificação.</p>
+        <div class="service-tags">
+          <span class="tag">SGSI</span>
+          <span class="tag">Gestão de riscos</span>
+          <span class="tag">Políticas de segurança</span>
+          <span class="tag">Controles</span>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="service-card">
+        <div class="service-num">04 / Segurança Ocupacional</div>
+        <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="24" cy="16" r="8"/>
+          <path d="M10 44 C10 36 16 30 24 30 C32 30 38 36 38 44"/>
+          <path d="M30 20 L36 12 L44 16"/>
+          <path d="M36 12 L36 28"/>
+        </svg>
+        <h3 class="service-title">Saúde e Segurança no Trabalho</h3>
+        <p class="service-desc">Implementamos Sistemas de Gestão de SST alinhados à ISO 45001, reduzindo riscos ocupacionais, aumentando conformidade legal e promovendo uma cultura de segurança.</p>
+        <div class="service-tags">
+          <span class="tag">SGSST</span>
+          <span class="tag">Análise de riscos</span>
+          <span class="tag">Conformidade legal</span>
+          <span class="tag">Treinamentos</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ISO CERTIFICATIONS -->
+<section id="certificacoes" class="iso-section">
+  <div class="container">
+    <div class="section-tag">▸ Certificações ISO</div>
+    <h2 class="section-title">Preparação completa<br>para certificação</h2>
+    <p class="section-sub">Conduzimos sua empresa do diagnóstico inicial até a certificação — com metodologia testada e acompanhamento em cada etapa.</p>
+
+    <div class="iso-grid">
+      <div class="iso-card">
+        <div class="iso-badge">ISO 27001</div>
+        <h3 class="iso-title">Segurança da Informação</h3>
+        <p class="iso-desc">A ISO 27001 é o padrão internacional para sistemas de gestão de segurança da informação. Protege dados críticos, reduz riscos cibernéticos e demonstra comprometimento com a privacidade.</p>
+        <ul class="iso-steps">
+          <li>Análise de lacunas (gap analysis)</li>
+          <li>Definição do escopo e política de segurança</li>
+          <li>Implementação dos controles do Anexo A</li>
+          <li>Treinamento e conscientização das equipes</li>
+          <li>Auditorias internas e revisão pela direção</li>
+          <li>Suporte à auditoria de certificação</li>
+        </ul>
+      </div>
+
+      <div class="iso-card">
+        <div class="iso-badge">ISO 45001</div>
+        <h3 class="iso-title">Saúde e Segurança Ocupacional</h3>
+        <p class="iso-desc">A ISO 45001 estabelece requisitos para sistemas de gestão de SST, prevenindo lesões, doenças ocupacionais e garantindo um ambiente de trabalho seguro e saudável.</p>
+        <ul class="iso-steps">
+          <li>Levantamento do contexto organizacional</li>
+          <li>Identificação de perigos e avaliação de riscos</li>
+          <li>Estruturação do Sistema de Gestão de SST</li>
+          <li>Programas de treinamento e capacitação</li>
+          <li>Monitoramento, medição e análise de desempenho</li>
+          <li>Acompanhamento até a certificação</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METHODOLOGY -->
+<section id="metodologia">
+  <div class="container">
+    <div class="section-tag">▸ Metodologia</div>
+    <h2 class="section-title">Como trabalhamos</h2>
+    <p class="section-sub">Um processo estruturado em quatro etapas que garante clareza, resultados mensuráveis e transformação duradoura.</p>
+
+    <div class="methodology-track">
+      <div class="method-step">
+        <div class="step-dot">01</div>
+        <h4 class="step-title">Diagnóstico</h4>
+        <p class="step-desc">Imersão na operação, mapeamento de processos e identificação de gaps críticos com análise de dados.</p>
+      </div>
+      <div class="method-step">
+        <div class="step-dot">02</div>
+        <h4 class="step-title">Desenho</h4>
+        <p class="step-desc">Definição da estratégia, arquitetura de solução e roadmap detalhado com entregas e indicadores.</p>
+      </div>
+      <div class="method-step">
+        <div class="step-dot">03</div>
+        <h4 class="step-title">Implementação</h4>
+        <p class="step-desc">Execução iterativa com sprints curtos, pilotos controlados e ajustes baseados em resultados reais.</p>
+      </div>
+      <div class="method-step">
+        <div class="step-dot">04</div>
+        <h4 class="step-title">Sustentação</h4>
+        <p class="step-desc">Transferência de conhecimento, capacitação da equipe e monitoramento contínuo pós-entrega.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contato" class="contact-section">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="section-tag">▸ Contato</div>
+        <h2 class="section-title">Vamos conversar sobre<br>o seu negócio?</h2>
+        <p>Entre em contato para um diagnóstico inicial sem compromisso. Analisamos seu cenário e apresentamos um plano objetivo de como podemos ajudar.</p>
+        <div class="contact-detail">
+          <div class="icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          contato@tranx.com.br
+        </div>
+        <div class="contact-detail">
+          <div class="icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          Brasil · Atendimento remoto e presencial
+        </div>
+        <div class="contact-detail">
+          <div class="icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.84 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.75 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
+          tranx.com.br
+        </div>
+      </div>
+
+      <div>
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nome</label>
+              <input type="text" placeholder="Seu nome completo">
+            </div>
+            <div class="form-group">
+              <label>Empresa</label>
+              <input type="text" placeholder="Nome da empresa">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>E-mail</label>
+            <input type="email" placeholder="seu@email.com.br">
+          </div>
+          <div class="form-group">
+            <label>Área de interesse</label>
+            <select>
+              <option value="" disabled selected>Selecione um serviço</option>
+              <option>Consultoria em IA</option>
+              <option>Auditoria de Processos</option>
+              <option>Certificação ISO 27001</option>
+              <option>Certificação ISO 45001</option>
+              <option>Múltiplos serviços</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Mensagem</label>
+            <textarea placeholder="Descreva brevemente o seu desafio ou projeto..."></textarea>
+          </div>
+          <button class="btn-submit">Enviar mensagem →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <a href="#" class="logo" style="margin-bottom: 8px; display: inline-flex;">
+          <div class="logo-mark">
+            <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="18,2 34,32 2,32" stroke="#00e6c8" stroke-width="1.5" fill="none"/>
+              <circle cx="18" cy="18" r="3" fill="#00e6c8"/>
+            </svg>
+          </div>
+          <span class="brand" style="font-size:16px;">TRAN<span>X</span></span>
+        </a>
+        <p class="footer-copy" style="margin-top:8px;">© 2025 Tranx Consultoria. Todos os direitos reservados.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#certificacoes">Certificações</a></li>
+        <li><a href="#metodologia">Metodologia</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
